@@ -55,54 +55,34 @@ module.exports.handleEvent = function({ api, event, getText }) {
 module.exports.run = function({ api, event, args, getText }) {
     const { commands } = global.client;
     const { threadID, messageID } = event;
-    const command = commands.get((args[0] || "").toLowerCase());
     const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
     const { autoUnsend, delayUnsend } = global.configModule[this.config.name];
     const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
 
-    if (!command) {
-        const arrayInfo = [];
-        const page = parseInt(args[0]) || 1;
-        const numberOfOnePage = 10;
-        let msg = "";
-        
-        for (let [name] of commands) {
-            arrayInfo.push(name);
-        }
+    const arrayInfo = Array.from(commands.keys());
+    arrayInfo.sort();
 
-        arrayInfo.sort();
-        
-        const startSlice = numberOfOnePage * (page - 1);
-        const returnArray = arrayInfo.slice(startSlice, startSlice + numberOfOnePage);
-        
-        returnArray.forEach((item, index) => {
-            msg += `「 ${startSlice + index + 1} 」${prefix}${item}\n`;
-        });
-        
-        const siu = `EF Prime Command list 📄\nMade by Frank Kaumba 🤖\nFor More Information type /help (command name) ✨\n󰂆 󰟯 󰟰 󰟷 󰟺 󰟵 󰟫`;
-        
-        const text = `\nPage (${page}/${Math.ceil(arrayInfo.length/numberOfOnePage)})\n`;
-        
-        return api.sendMessage(siu + "\n\n" + msg + text, threadID, async (error, info) => {
-            if (autoUnsend) {
-                await new Promise(resolve => setTimeout(resolve, delayUnsend * 1000));
-                return api.unsendMessage(info.messageID);
-            }
-        }, messageID);
+    const numberOfOnePage = Math.ceil(arrayInfo.length / 2);
+    const page = parseInt(args[0]) || 1;
+
+    if (page > 2 || page < 1) {
+        return api.sendMessage(`Please enter a valid page number (1 or 2).`, threadID, messageID);
     }
 
-    return api.sendMessage(
-        getText(
-            "moduleInfo", 
-            command.config.name, 
-            command.config.description, 
-            `${prefix}${command.config.name} ${(command.config.usages) ? command.config.usages : ""}`, 
-            command.config.commandCategory, 
-            command.config.cooldowns, 
-            ((command.config.hasPermssion == 0) ? getText("user") : (command.config.hasPermssion == 1) ? getText("adminGroup") : getText("adminBot")), 
-            command.config.credits
-        ), 
-        threadID, 
-        messageID
-    );
+    const startSlice = numberOfOnePage * (page - 1);
+    const returnArray = arrayInfo.slice(startSlice, startSlice + numberOfOnePage);
+
+    let msg = `EF Prime Command list 📄\nMade by Frank Kaumba 🤖\n\n`;
+    returnArray.forEach((item, index) => {
+        msg += `「 ${startSlice + index + 1} 」${prefix}${item}\n`;
+    });
+
+    msg += `\nPage (${page}/2)`;
+
+    return api.sendMessage(msg, threadID, async (error, info) => {
+        if (autoUnsend) {
+            await new Promise(resolve => setTimeout(resolve, delayUnsend * 1000));
+            return api.unsendMessage(info.messageID);
+        }
+    }, messageID);
 };
