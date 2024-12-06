@@ -86,14 +86,15 @@ module.exports.run = function({ api, event, args, getText }) {
 
     let msg = "EF Prime Command List\n";
     selectedCategories.forEach(([category, commands], index) => {
-        msg += `${category}:\n`;
+        msg += `⌈ ${category.toUpperCase()} ⌋\n`;
         commands.forEach(cmd => {
-            msg += `. ${prefix}${cmd} `;
+            msg += `${prefix}${cmd}, `;
         });
-        msg += '\n';
+        msg = msg.slice(0, -2); // Remove the last comma and space
+        msg += '\n\n';
     });
 
-    msg += `\nPage (${page}/${Math.ceil(Object.keys(categories).length / numberOfOnePage)})\n`;
+    msg += `Page (${page}/${Math.ceil(Object.keys(categories).length / numberOfOnePage)})\n`;
     msg += `\nMade by Frank Kaumba\nFor more information, type /help [command name]\n`;
     msg += `${quote}`;
 
