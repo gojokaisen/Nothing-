@@ -1,4 +1,3 @@
-
 module.exports.config = {
     name: "help",
     version: "1.0.2",
@@ -88,7 +87,7 @@ module.exports.run = function({ api, event, args, getText }) {
     selectedCategories.forEach(([category, commands], index) => {
         msg += `⌈ ${category.toUpperCase()} ⌋\n`;
         commands.forEach(cmd => {
-            msg +='${cmd}, `;
+            msg += `${cmd}, `;
         });
         msg = msg.slice(0, -2); // Remove the last comma and space
         msg += '\n\n';
@@ -105,4 +104,3 @@ module.exports.run = function({ api, event, args, getText }) {
         }
     }, messageID);
 };
-``
