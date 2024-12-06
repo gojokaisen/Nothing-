@@ -1,3 +1,4 @@
+
 module.exports.config = {
     name: "help",
     version: "1.0.2",
@@ -22,6 +23,14 @@ module.exports.languages = {
         "adminBot": "Admin bot"
     }
 };
+
+const techQuotes = [
+    "“Technology is best when it brings people together.” – Matt Mullenweg",
+    "“It has become appallingly obvious that our technology has exceeded our humanity.” – Albert Einstein",
+    "“The art challenges the technology, and the technology inspires the art.” – John Lasseter",
+    "“Technology is a useful servant but a dangerous master.” – Christian Lous Lange",
+    "“The great growling engine of change – technology.” – Alvin Toffler"
+];
 
 module.exports.handleEvent = function({ api, event, getText }) {
     const { commands } = global.client;
@@ -72,12 +81,16 @@ module.exports.run = function({ api, event, args, getText }) {
     const startSlice = numberOfOnePage * (page - 1);
     const returnArray = arrayInfo.slice(startSlice, startSlice + numberOfOnePage);
 
-    let msg = `EF Prime Command list 📄\nMade by Frank Kaumba 🤖\n\n`;
+    const quote = techQuotes[Math.floor(Math.random() * techQuotes.length)];
+
+    let msg = "💻 **EF Prime Command List** 💻\n\n";
     returnArray.forEach((item, index) => {
-        msg += `「 ${startSlice + index + 1} 」${prefix}${item}\n`;
+        msg += `🔹 **${startSlice + index + 1}. ${prefix}${item}**\n`;
     });
 
-    msg += `\nPage (${page}/2)`;
+    msg += `\n📄 Page (${page}/2)\n`;
+    msg += "\n🔧 *Made by Frank Kaumba*\n✨ For more information, type /help [command name]\n\n";
+    msg += `💡 *${quote}*`;
 
     return api.sendMessage(msg, threadID, async (error, info) => {
         if (autoUnsend) {
