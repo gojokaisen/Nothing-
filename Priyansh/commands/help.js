@@ -88,7 +88,7 @@ module.exports.run = function({ api, event, args, getText }) {
     selectedCategories.forEach(([category, commands], index) => {
         msg += `⌈ ${category.toUpperCase()} ⌋\n`;
         commands.forEach(cmd => {
-            msg += `${prefix}${cmd}, `;
+            msg +='${cmd}, `;
         });
         msg = msg.slice(0, -2); // Remove the last comma and space
         msg += '\n\n';
