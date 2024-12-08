@@ -24,11 +24,11 @@ module.exports.languages = {
 };
 
 const techQuotes = [
-    ""Technology is best when it brings people together." – Matt Mullenweg",
-    ""It has become appallingly obvious that our technology has exceeded our humanity." – Albert Einstein",
-    ""The art challenges the technology, and the technology inspires the art." – John Lasseter",
-    ""Technology is a useful servant but a dangerous master." – Christian Lous Lange",
-    ""The great growling engine of change – technology." – Alvin Toffler"
+    "“Technology is best when it brings people together.” – Matt Mullenweg",
+    "“It has become appallingly obvious that our technology has exceeded our humanity.” – Albert Einstein",
+    "“The art challenges the technology, and the technology inspires the art.” – John Lasseter",
+    "“Technology is a useful servant but a dangerous master.” – Christian Lous Lange",
+    "“The great growling engine of change – technology.” – Alvin Toffler"
 ];
 
 module.exports.handleEvent = function({ api, event, getText }) {
@@ -76,7 +76,7 @@ module.exports.run = function({ api, event, args, getText }) {
         categories[category].push(command.config.name);
     });
 
-    const numberOfOnePage = 2; 
+    const numberOfOnePage = 2;
     const page = parseInt(args[0]) || 1;
     const startSlice = numberOfOnePage * (page - 1);
 
@@ -89,7 +89,7 @@ module.exports.run = function({ api, event, args, getText }) {
         commands.forEach(cmd => {
             msg += `${cmd}, `;
         });
-        msg = msg.slice(0, -2); 
+        msg = msg.slice(0, -2); // Remove the last comma and space
         msg += '\n\n';
     });
 
