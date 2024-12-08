@@ -32,7 +32,7 @@ module.exports.handleEvent = async ({ event, api, Threads }) => {
       const prefix = threadSetting.PREFIX || global.config.PREFIX;
       
       return out(`🤖 EF PRIME PREFIX: [ ${prefix} ]
-Developed by Frank Kaumba
+ఌ︎
 Use this prefix to activate commands!`);
     }
   });
@@ -42,6 +42,6 @@ module.exports.run = async({ event, api }) => {
   const prefix = global.config.PREFIX;
   
   return api.sendMessage(`🤖 EF PRIME PREFIX: [ ${prefix} ]
-Developed by Frank Kaumba
+ت︎
 Type commands after this prefix!`, event.threadID);
 };
