@@ -83,7 +83,7 @@ module.exports.run = function({ api, event, args, getText }) {
     const selectedCategories = Object.entries(categories).slice(startSlice, startSlice + numberOfOnePage);
     const quote = techQuotes[Math.floor(Math.random() * techQuotes.length)];
 
-    let msg = "EF Prime Command List\n";
+    let msg = "EF Prime Command List シ︎\n";
     selectedCategories.forEach(([category, commands], index) => {
         msg += `⌈ ${category.toUpperCase()} ⌋\n`;
         commands.forEach(cmd => {
@@ -94,7 +94,7 @@ module.exports.run = function({ api, event, args, getText }) {
     });
 
     msg += `Page (${page}/${Math.ceil(Object.keys(categories).length / numberOfOnePage)})\n`;
-    msg += `\nMade by Frank Kaumba\nFor more information, type /help [command name]\n`;
+    msg += `\nMade with ❥︎\nFor more information, type /help [command name]\n`;
     msg += `${quote}`;
 
     return api.sendMessage(msg, threadID, async (error, info) => {
